@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# サービス名：『ツリキタ』
 
-## Getting Started
+# 目次
+- [サービス概要](#サービス概要)
+- [サービスURL](#サービスurl)
+- [サービスへの思い](#サービスへの思い)
+- [機能紹介](#機能紹介)
+- [技術構成について](#技術構成について)
+  - [使用技術](#使用技術)
+  - [ER図](#er図)
+  - [画面遷移図](#画面遷移図)<br>
+<br>
 
-First, run the development server:
+# サービス概要
+北海道特化の釣り情報サイトです。釣り場の詳細情報、釣果報告、アクセス情報などを提供し、釣り人同士のコミュニケーションを促進します。
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# サービスURL
+### https://tsurikita.com(準備中)<br>
+<br>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# サービスへの思い
+北海道には素晴らしい釣り場が数多くありますが、その情報が散在しており、特に初心者にとっては情報収集が難しい状況です。また、釣り場の混雑状況や釣果情報をリアルタイムで共有できるプラットフォームが必要だと感じました。さらに、初心者の参入において駐車場の情報や釣り場へのアクセス、危険なこと、禁止事項などがわかりづらいことに課題を感じています。『ツリキタ』は、そんな課題を解決し、北海道の釣り文化をより多くの人に伝え、盛り上げていくことを目指しています。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# 機能紹介
+| 機能 | 説明 |
+| --- | --- |
+| ログイン | Xによるソーシャルログイン |
+| 釣場情報 | 北海道の主要な釣り場の写真・所在地・ターゲット魚種・アクセス情報を掲載 |
+| Googleマップ連携 | 釣り場の位置情報をマップ上で確認可能 |
+| 釣れる魚の情報 | 釣り場ごとのターゲット魚種一覧、季節ごとの傾向と釣り方解説 |
+| 釣果報告 | ユーザーによる釣果情報の投稿・共有機能 |
+| コメント機能 | 釣果報告へのコメント投稿機能 |
+| 駐車場情報 | 駐車場の有無、料金、混雑状況などの情報提供 |
+| 検索機能 | 魚種・地域・季節などによる釣り場検索機能 |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# 技術構成について
 
-## Learn More
+## 使用技術
+| カテゴリ | 技術内容 |
+| --- | --- | 
+| フロントエンド | Next.js 15 |
+| バックエンド | Supabase |
+| インフラ | Vercel |
+| データベース | PostgreSQL (Supabase) |
+| 認証 | Supabase Auth |
+| ストレージ | Supabase Storage |
+| 地図連携 | Google Maps API |
+| バージョン管理 | GitHub |
+<br>
 
-To learn more about Next.js, take a look at the following resources:
+## ER図
+（準備中）
+<br>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 画面遷移図
+（準備中）
