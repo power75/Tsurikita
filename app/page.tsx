@@ -6,7 +6,7 @@ export default function Home() {
     <h1 className="text-5xl font-mono text-center">
       ツリキタ！！！！！！！！！！！！！！！
     </h1>
-      <Image src="/image/logo.png" alt="ロゴ" width={100} height={100} />
+      <Image src="/image/logo.png" alt="ロゴ" width={1000} height={1000} />
     </div>
   )
 }
