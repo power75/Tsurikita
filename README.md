@@ -15,7 +15,7 @@
 北海道特化の釣り情報サイトです。釣り場の詳細情報、釣果報告、アクセス情報などを提供し、釣り人同士のコミュニケーションを促進します。
 
 # サービスURL
-### https://tsurikita.com(準備中)<br>
+### https://nextjs-boilerplate-two-eta-12.vercel.app/ (準備中)<br>
 <br>
 
 # サービスへの思い
