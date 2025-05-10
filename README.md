@@ -53,5 +53,6 @@
 <br>
 
 ## 画面遷移フロー
-![image](https://github.com/user-attachments/assets/bd080274-a654-4480-92b0-0462441735a0)
+![image](https://github.com/user-attachments/assets/5105056b-5354-4684-97e5-6cf52c899741)
+
 
