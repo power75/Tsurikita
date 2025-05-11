@@ -1,5 +1,7 @@
 import { RefreshCcw } from "lucide-react";
 import Header from "./_components/header";
+import Footer from "./_components/footer";
+
 export default function MainLayout({
   children,
 }: {
@@ -8,5 +10,6 @@ export default function MainLayout({
   return <div>
     <Header />
     {children}
+    <Footer />
     </div>;
 }
