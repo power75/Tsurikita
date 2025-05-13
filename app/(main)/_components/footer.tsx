@@ -3,7 +3,7 @@ import { List } from "lucide-react";
 
 export default function Footer() {
     return (
-        <footer className="fixed bottom-0 w-full p-4">
+        <footer className="bottom-0 w-full p-4">
             <div className="max-w-7xl mx-auto">
                 <div className="flex justify-center space-x-8 mb-4">
                     <Link href="/terms" className="hover:text-gray-600">利用規約</Link>
