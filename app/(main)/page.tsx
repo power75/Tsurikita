@@ -4,12 +4,14 @@ import Header from './_components/header'
 import Hokkaido from './_components/hokkaido'
 export default function Home() {
   return (
-    <main className='container mx-auto mb-50'>
+    <main className='container mx-auto'>
       <div className='bg-secondary m-3 p-4'>
         <div className="text-left">
-          <h1 className="text-gray-600 font-bold text-2xl mb-3">地図から釣り場を探す</h1>
+          <h1 className="text-2xl mb-3 font-bold bg-gradient-to-r from-blue-500 to-pink-400 bg-clip-text text-transparent inline-block w-fit">
+            釣り場を探す
+          </h1>
         </div>
-        <div className='flex items-center justify-center'>
+        <div>
           <Hokkaido />
         </div>
       </div>
