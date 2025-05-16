@@ -49,8 +49,8 @@
 <br>
 
 ## ER図
-（準備中）
-<br>
+![image](https://github.com/user-attachments/assets/26736a57-8b01-48ba-8280-266c8bbf041b)
+
 
 ## 画面遷移フロー
 ![image](https://github.com/user-attachments/assets/5105056b-5354-4684-97e5-6cf52c899741)
