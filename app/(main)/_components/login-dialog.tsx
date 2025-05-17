@@ -17,8 +17,8 @@ import { Input } from "@/components/ui/input";
 export default function GuestDialog() {
     const [open, setOpen] = useState(false);
     return (
-        <Buutton>
+        <Button>
             ログアウト
-        </Buutton>
+        </Button>
     );
 }
