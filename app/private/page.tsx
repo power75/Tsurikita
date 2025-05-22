@@ -23,9 +23,9 @@ export default async function PrivatePage() {
       <p>ようこそ{username}さん</p>
       <div className="flex flex-col items-center p-4">
         <h1 className="text-2xl font-bold">マイページ</h1>
-        <p className>ここはプライベートな情報が表示されるページです。</p>
-        <p className>ユーザー名: {username}</p>
-        <p className>メールアドレス: {data.user.email}</p>
+        <p>ここはプライベートな情報が表示されるページです。</p>
+        <p>ユーザー名: {username}</p>
+        <p>メールアドレス: {data.user.email}</p>
       </div>
     </div>
   );
