@@ -21,7 +21,7 @@ export default function GuestDialog() {
             <DialogTrigger asChild>
                 <Button variant="outline" className="mr-3">ログイン / アカウント作成</Button>
             </DialogTrigger>
-                <DialogContent>
+                <DialogContent className="sm:top-50 sm:translate-y-0 top-10 translate-y-0">
                 <DialogHeader>
                     <DialogTitle className="pb-2">ログイン / アカウント作成</DialogTitle>
                     <DialogDescription asChild>
