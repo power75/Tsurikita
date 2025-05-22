@@ -18,7 +18,14 @@ export default function Header() {
             <Input placeholder="室蘭港" className="pl-10"/>
             <SearchIcon className="absolute top-1/2 left-3 -translate-y-1/2 text-gray-400" />
         </div>
+        <div className="flex">
+        <Button variant="outline" className="mr-3">
+          <Link href="/private">
+            マイページ
+          </Link>
+        </Button>
         <GuestDialog/>
+        </div>
     </header>
   );
 }
