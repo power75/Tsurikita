@@ -10,9 +10,9 @@ const dummyData = [
   { image: '/image/logo2.png', userName: 'ユーザー4', date: '2025-05-13', location: '稚内', fishName: 'ニシン' },
 ];
 
-export default function CatchList() {
+export default function CatchList({ columns = 4 }: { columns?: number }) {
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className={`grid gap-6 grid-cols-1 lg:grid-cols-${columns}`}>
       {dummyData.map((item, idx) => (
         <Card key={idx} className="flex flex-col h-full">
           <div className="flex flex-col w-full max-w-md mx-auto">

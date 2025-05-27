@@ -1,5 +1,7 @@
-import { redirect } from 'next/navigation'
-import { createClient } from '@/utils/supabase/server'
+import { redirect } from 'next/navigation';
+import { createClient } from '@/utils/supabase/server';
+import Mycatch from '@/app/(main)/_components/(mypage)/mycatch';
+import Mymenu from '@/app/(main)/_components/(mypage)/mymenu';
 import React from 'react';
 export default async function PrivatePage() {
   const supabase = await createClient()
@@ -19,13 +21,14 @@ export default async function PrivatePage() {
   let username = profiles?.username;
 
   return (
-    <div className="flex flex-col items-center h-screen">
-      <p>ようこそ{username}さん</p>
-      <div className="flex flex-col items-center p-4">
-        <h1 className="text-2xl font-bold">マイページ</h1>
-        <p>ここはプライベートな情報が表示されるページです。</p>
-        <p>ユーザー名: {username}</p>
-        <p>メールアドレス: {data.user.email}</p>
+   <div className="grid grid-cols-5">
+      <div className="col-span-1 m-5">
+        <Mymenu />
+      </div>
+      <div className="col-span-3 m-5 flex justify-center">
+        <div className="w-full max-w-2xl">
+          <Mycatch />
+        </div>
       </div>
     </div>
   );
