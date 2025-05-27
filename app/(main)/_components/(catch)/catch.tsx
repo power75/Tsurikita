@@ -12,7 +12,12 @@ const dummyData = [
 
 export default function CatchList({ columns = 4 }: { columns?: number }) {
   return (
-    <div className={`grid gap-6 grid-cols-1 lg:grid-cols-${columns}`}>
+    <div className={
+        `grid gap-6 ` +
+        (columns === 1
+          ? 'grid-cols-1'
+          : `grid-cols-2 md:grid-cols-${columns}`)
+      }>
       {dummyData.map((item, idx) => (
         <Card key={idx} className="flex flex-col h-full">
           <div className="flex flex-col w-full max-w-md mx-auto">
