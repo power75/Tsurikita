@@ -27,13 +27,13 @@ export default function Mymenu() {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem asChild>
-              <Link href="/profile">プロフィール</Link>
+              <Link href="private/profile">プロフィール</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href="/mycatch">あなたの釣果</Link>
+              <Link href="/private">あなたの釣果</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href="/area">お気に入り釣り場</Link>
+              <Link href="private/areas">お気に入り釣り場</Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -43,17 +43,17 @@ export default function Mymenu() {
 
   return (
     <div className="flex flex-col gap-3 mt-10">
-      <Link href="./profile" className="w-full">
+      <Link href="private/profile" className="w-full">
         <Button variant="outline" size="lg" className="w-full text-lg cursor-pointer">
           プロフィール
         </Button>
       </Link>
-      <Link href="./mycatch" className="w-full">
+      <Link href="/private" className="w-full">
         <Button variant="outline" size="lg" className="w-full text-lg cursor-pointer">
           あなたの釣果
         </Button>
       </Link>
-      <Link href="./area" className="w-full">
+      <Link href="private/areas" className="w-full">
         <Button variant="outline" size="lg" className="w-full text-lg cursor-pointer">
           お気に入り釣り場
         </Button>
