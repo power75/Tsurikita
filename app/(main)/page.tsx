@@ -26,7 +26,7 @@ export default function Home() {
           </h1>
         </div>
         <div className="flex-col md:flex-row gap-4">
-          <CatchList />
+          <CatchList columns={4}/>
         </div>
         </div>
     </main>

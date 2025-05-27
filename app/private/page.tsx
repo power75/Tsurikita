@@ -26,7 +26,7 @@ export default async function PrivatePage() {
         <Mymenu />
       </div>
       <div className="col-span-3 m-5 flex justify-center">
-        <div className="w-full max-w-2xl">
+        <div className="w-auto">
           <Mycatch />
         </div>
       </div>
