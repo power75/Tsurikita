@@ -10,28 +10,27 @@ import { UsernameForm } from "./username-form";
 
 // ユーザー名を更新するServer Action
 async function updateUsername(formData: FormData) {
-  'use server'
-  
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  
-  if (!user) {
-    redirect('/login')
-  }
+ 'use server'
+    try {
+        const supabase = await createClient()
+        const { data: { user } } = await supabase.auth.getUser()
+        
+        if (!user) {
+            redirect('/login')
+        }
 
-  const username = formData.get('username') as string
+        const username = formData.get('username') as string
 
-  const { error } = await supabase
-    .from('profiles')
-    .update({ username })
-    .eq('id', user.id)
+        await supabase
+            .from('profiles')
+            .update({ username })
+            .eq('id', user.id)
 
-  if (error) {
-    console.error('Error updating username:', error)
-    return
-  }
-
-  revalidatePath('/private/profile')
+        revalidatePath('/private/profile')
+    } catch (error) {
+        console.error('ユーザー名の更新に失敗しました:', error)
+        return
+    }
 }
 
 export default async function Profile() {
