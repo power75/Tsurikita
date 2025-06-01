@@ -8,31 +8,6 @@ import { Input } from "@/components/ui/input";
 import { Pencil } from "lucide-react";
 import { UsernameForm } from "./username-form";
 
-// ユーザー名を更新するServer Action
-async function updateUsername(formData: FormData) {
- 'use server'
-    try {
-        const supabase = await createClient()
-        const { data: { user } } = await supabase.auth.getUser()
-        
-        if (!user) {
-            redirect('/login')
-        }
-
-        const username = formData.get('username') as string
-
-        await supabase
-            .from('profiles')
-            .update({ username })
-            .eq('id', user.id)
-
-        revalidatePath('/private/profile')
-    } catch (error) {
-        console.error('ユーザー名の更新に失敗しました:', error)
-        return
-    }
-}
-
 export default async function Profile() {
   // supabaseクライアントを作成する
   const supabase = await createClient()

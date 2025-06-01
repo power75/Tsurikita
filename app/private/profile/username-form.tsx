@@ -39,7 +39,7 @@ export function UsernameForm({ initialUsername }: UsernameFormProps) {
           className="w-48"
           required
         />
-        <Button type="submit" variant="default" size="sm">
+        <Button type="submit" variant="default" size="sm" className="cursor-pointer">
           <Check className="h-4 w-4" />
         </Button>
         <Button
@@ -50,6 +50,7 @@ export function UsernameForm({ initialUsername }: UsernameFormProps) {
             setIsEditing(false)
             setUsername(initialUsername || '')
           }}
+          className="cursor-pointer"
         >
           <X className="h-4 w-4" />
         </Button>
