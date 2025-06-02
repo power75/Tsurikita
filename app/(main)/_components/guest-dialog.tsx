@@ -19,7 +19,7 @@ export default function GuestDialog() {
     return (
            <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline" className="mr-3">ログイン / アカウント作成</Button>
+                <Button variant="outline" className="cursor-pointer mr-3">ログイン / アカウント作成</Button>
             </DialogTrigger>
                 <DialogContent className="sm:top-50 sm:translate-y-0 top-10 translate-y-0">
                 <DialogHeader>

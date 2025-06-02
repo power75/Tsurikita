@@ -1,23 +1,18 @@
 "use client";
-import Link from "next/link";
-import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogOverlay,
-  DialogPortal,
-} from "@/components/ui/dialog";
-import { login } from '../../login/actions';
-import { Input } from "@/components/ui/input";
-export default function GuestDialog() {
-    const [open, setOpen] = useState(false);
+import { createClient } from "@/utils/supabase/client";
+import { useRouter } from "next/navigation";
+
+export default function LoginDialog() {
+    const supabase = createClient()
+    const router = useRouter()
+
+    const handleLogout = async () => {
+        await supabase.auth.signOut()
+        router.push('/')  // ルートパスへリダイレクト
+    }   
     return (
-        <Button>
+        <Button className="cursor-pointer mr-3" onClick={handleLogout}>
             ログアウト
         </Button>
     );

@@ -2,10 +2,6 @@
 import { createClient } from '@/utils/supabase/server';
 // ユーザーがログインしていない場合にリダイレクトするための関数をインポート
 import { redirect } from 'next/navigation';
-import { revalidatePath } from 'next/cache';
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Pencil } from "lucide-react";
 import { UsernameForm } from "./username-form";
 
 export default async function Profile() {
