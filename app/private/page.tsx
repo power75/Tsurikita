@@ -22,10 +22,7 @@ export default async function PrivatePage() {
 
   return (
    <div className="grid grid-cols-5">
-      <div className="col-span-1 m-5">
-        <Mymenu />
-      </div>
-      <div className="col-span-3 m-5 flex justify-center">
+      <div className="col-span-5 m-5 flex justify-center">
         <div className="w-auto">
           <Mycatch />
         </div>
