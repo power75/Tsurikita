@@ -68,6 +68,7 @@ export function IconForm({ initialIcon }: IconFormProps) {
           aria-label="アイコン画像を選択"
         />
         <div className="flex flex-col items-center gap-2">
+          
           <Button
             variant="outline"
             className="cursor-pointer"
@@ -78,6 +79,7 @@ export function IconForm({ initialIcon }: IconFormProps) {
           >
             {isUploading ? 'アップロード中...' : 'アイコンを変更'}
           </Button>
+          <p className="text-xs text-gray-400 mb-1">※ サイズは1MBまでの gif, png, jpeg 形式のみ対応</p>
           {error && (
             <p className="text-red-500 text-sm">{error}</p>
           )}
