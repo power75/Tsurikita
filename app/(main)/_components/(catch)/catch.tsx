@@ -4,10 +4,10 @@ import CatchImage from './catchImage';
 import CatchInfo from './catchInfo';
 
 const dummyData = [
-  { image: '/image/logo2.png', userName: 'ユーザー1', date: '2025-05-16', location: '札幌', fishName: 'サケ' },
-  { image: '/image/logo2.png', userName: 'ユーザー2', date: '2025-05-15', location: '小樽', fishName: 'カレイ' },
-  { image: '/image/logo2.png', userName: 'ユーザー3', date: '2025-05-14', location: '函館', fishName: 'ホッケ' },
-  { image: '/image/logo2.png', userName: 'ユーザー4', date: '2025-05-13', location: '稚内', fishName: 'ニシン' },
+  { id: '1', image: '/image/logo2.png', userName: 'ユーザー1', date: '2025-05-16', location: '札幌', fishName: 'サケ' },
+  { id: '2', image: '/image/logo2.png', userName: 'ユーザー2', date: '2025-05-15', location: '小樽', fishName: 'カレイ' },
+  { id: '3', image: '/image/logo2.png', userName: 'ユーザー3', date: '2025-05-14', location: '函館', fishName: 'ホッケ' },
+  { id: '4', image: '/image/logo2.png', userName: 'ユーザー4', date: '2025-05-13', location: '稚内', fishName: 'ニシン' },
 ];
 
 export default function CatchList({ columns = 4 }: { columns?: number }) {
@@ -21,7 +21,7 @@ export default function CatchList({ columns = 4 }: { columns?: number }) {
       {dummyData.map((item, idx) => (
         <Card key={idx} className="flex flex-col h-full">
           <div className="flex flex-col w-full max-w-md mx-auto">
-            <CatchImage src={item.image} alt={item.fishName} />
+              <CatchImage catchId={item.id} alt={item.fishName} />
             <CatchInfo userName={item.userName} date={item.date} location={item.location} fishName={item.fishName} />
           </div>
         </Card>

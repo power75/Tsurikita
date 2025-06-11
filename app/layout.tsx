@@ -3,6 +3,7 @@ import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import Header from "./(main)/_components/header";
 import Footer from "./(main)/_components/footer";
+import { PostButton } from "./(main)/_components/post-button";
 const noto_Sans_JP = Noto_Sans_JP({
   variable: "--font-noto-sans-jp",
   subsets: ["latin"],
@@ -26,6 +27,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <PostButton />
       </body>
     </html>
   );
