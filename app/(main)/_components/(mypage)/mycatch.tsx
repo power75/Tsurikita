@@ -2,7 +2,7 @@
 
 import { createClient } from '@/utils/supabase/server'
 import { Card } from '@/components/ui/card'
-import CatchImage from '../(catch)/catchImage'
+import CatchImage from '../(catch)/mycatchImage'
 import CatchInfo from '../(catch)/catchInfo'
 import { redirect } from 'next/navigation'
 

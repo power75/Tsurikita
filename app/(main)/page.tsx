@@ -2,10 +2,10 @@ import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 import Header from './_components/header'
 import Hokkaido from './_components/hokkaido'
-import Catch from './_components/(catch)/catch'
-import CatchImage from './_components/(catch)/catchImage'
+import Catch from './_components/(catch)/top-catch'
+import CatchImage from './_components/(catch)/mycatchImage'
 import CatchInfo from './_components/(catch)/catchInfo'
-import CatchList from './_components/(catch)/catch'
+import CatchList from './_components/(catch)/top-catch'
 export default function Home() {
   return (
     <main className='container mx-auto'>
