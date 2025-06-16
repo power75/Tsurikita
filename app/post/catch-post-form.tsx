@@ -65,7 +65,7 @@ export default function CatchPostForm() {
       let imageUrl = null;
       if (values.image && values.image.length > 0) {
         const file = values.image[0];
-        if (file.size > 1024 * 1024) throw new Error("画像サイズは1MBまでです");
+        if (file.size > 50 * 1024 * 1024) throw new Error("画像サイズは50MBまでです");
         const fileExt = file.name.split('.').pop();
         const fileName = `${crypto.randomUUID()}-${Date.now()}.${fileExt}`;
         const { data, error: uploadError } = await supabase.storage
@@ -95,6 +95,7 @@ export default function CatchPostForm() {
       form.reset();
       setImagePreview(null);
       router.refresh();
+      router.push('/private');
     } catch (err: any) {
       setError(err.message || "投稿に失敗しました");
     } finally {
