@@ -5,18 +5,13 @@ import { Card } from "@/components/ui/card";
 import CatchImage from "@/app/(main)/_components/(catch)/mycatchImage";
 import CatchInfo from "@/app/(main)/_components/(catch)/catchInfo";
 
-type Props = {
-  params: { id: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-};
-
 // 日付を「何月何日」形式に変換する関数
 function formatDate(dateString: string) {
   const date = new Date(dateString);
   return `${date.getMonth() + 1}月${date.getDate()}日`;
 }
 
-export default async function FishingSpotDetail({ params }: Props) {
+export default async function FishingSpotDetail({ params }: any) {
   const id = parseInt(params.id, 10);
 
   if (isNaN(id)) {
