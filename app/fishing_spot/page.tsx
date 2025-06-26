@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { useSearchParams } from "next/navigation";
 import FishingSpotMapWrapper from "./FishingSpotMapWrapper";
@@ -28,7 +28,7 @@ const regionMap: { [key: string]: Region } = {
   doto: { name: "道東", lat: 43.0644, lng: 144.3869, zoom: 8 },
 };
 
-export default function FishingSpotList() {
+function FishingSpotListContent() {
   const searchParams = useSearchParams();
   const [fishingSpots, setFishingSpots] = useState<FishingSpot[]>([]);
   const [loading, setLoading] = useState(true);
@@ -138,5 +138,18 @@ export default function FishingSpotList() {
         ))}
       </div>
     </div>
+  );
+}
+
+export default function FishingSpotList() {
+  return (
+    <Suspense fallback={
+      <div className="container mx-auto p-4">
+        <h1 className="text-2xl font-bold mb-4">釣り場一覧</h1>
+        <p>読み込み中...</p>
+      </div>
+    }>
+      <FishingSpotListContent />
+    </Suspense>
   );
 } 
