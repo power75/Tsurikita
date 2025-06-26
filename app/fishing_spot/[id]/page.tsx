@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import CatchImage from "@/app/(main)/_components/(catch)/mycatchImage";
 import CatchInfo from "@/app/(main)/_components/(catch)/catchInfo";
+import FishingSpotMapWrapper from "../FishingSpotMapWrapper";
 
 // 日付を「何月何日」形式に変換する関数
 function formatDate(dateString: string) {
@@ -94,9 +95,14 @@ export default async function FishingSpotDetail({ params }: any) {
           <h2 className="text-xl font-semibold mb-2">注意事項</h2>
           <p>{fishingSpot.caution}</p>
         </div>
-        {fishingSpot.google_map_url && (
+        {fishingSpot.latitude && fishingSpot.longitude && (
           <div>
             <h2 className="text-xl font-semibold mb-2">地図</h2>
+            <FishingSpotMapWrapper lat={Number(fishingSpot.latitude)} lng={Number(fishingSpot.longitude)} name={fishingSpot.name} />
+          </div>
+        )}
+        {fishingSpot.google_map_url && (
+          <div>
             <a
               href={fishingSpot.google_map_url}
               target="_blank"
