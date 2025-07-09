@@ -13,6 +13,12 @@ const nextConfig = {
         port: '',
         pathname: '/storage/v1/object/public/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'fishingspot.s3.ap-northeast-1.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 }

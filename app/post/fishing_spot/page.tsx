@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
+
 export default function FishingSpotForm() {
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -32,20 +33,23 @@ export default function FishingSpotForm() {
       let imageUrl = null;
       const imageFile = formData.get("image") as File;
       if (imageFile && imageFile.size > 0) {
-        const fileExt = imageFile.name.split('.').pop();
-        const fileName = `${crypto.randomUUID()}-${Date.now()}.${fileExt}`;
-        const { error: uploadError } = await supabase.storage
-          .from("catch-images")
-          .upload(fileName, imageFile, {
-            cacheControl: "3600",
-            upsert: false,
-            contentType: imageFile.type,
-          });
-        if (uploadError) throw uploadError;
-        const { data: publicUrlData } = supabase.storage
-          .from("catch-images")
-          .getPublicUrl(fileName);
-        imageUrl = publicUrlData?.publicUrl;
+        // APIルートを使用してS3にアップロード
+        const uploadFormData = new FormData();
+        uploadFormData.append('file', imageFile);
+        uploadFormData.append('folder', 'upload/fishing-spots'); // 釣り場画像用フォルダ
+        
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          body: uploadFormData,
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok || !data.success) {
+          throw new Error(data.error || "画像のアップロードに失敗しました");
+        }
+        
+        imageUrl = data.fileUrl;
       }
       const { data, error: insertError } = await supabase
         .from("fishing_spots")

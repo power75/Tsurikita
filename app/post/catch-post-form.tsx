@@ -65,21 +65,24 @@ export default function CatchPostForm() {
       let imageUrl = null;
       if (values.image && values.image.length > 0) {
         const file = values.image[0];
-        if (file.size > 50 * 1024 * 1024) throw new Error("画像サイズは50MBまでです");
-        const fileExt = file.name.split('.').pop();
-        const fileName = `${crypto.randomUUID()}-${Date.now()}.${fileExt}`;
-        const { data, error: uploadError } = await supabase.storage
-          .from("catch-images")
-          .upload(fileName, file, {
-            cacheControl: "3600",
-            upsert: false,
-            contentType: file.type,
-          });
-        if (uploadError) throw uploadError;
-        const { data: publicUrlData } = supabase.storage
-          .from("catch-images")
-          .getPublicUrl(fileName);
-        imageUrl = publicUrlData?.publicUrl;
+        
+        // APIルートを使用してS3にアップロード
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('folder', 'upload/catch'); // キャッチ画像用フォルダ
+        
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData,
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok || !data.success) {
+          throw new Error(data.error || "画像のアップロードに失敗しました");
+        }
+        
+        imageUrl = data.fileUrl;
       }
       const { error: insertError } = await supabase
         .from("catches")
