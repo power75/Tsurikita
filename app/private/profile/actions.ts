@@ -38,77 +38,34 @@ export async function updateIcon(formData: FormData) {
       throw new Error('ファイルが選択されていません')
     }
 
-    // ファイルサイズのチェック（5MB以下）
-    if (file.size > 5 * 1024 * 1024) {
-      throw new Error('ファイルサイズは5MB以下にしてください')
-    }
-
-    // ファイル形式のチェック
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif']
-    if (!allowedTypes.includes(file.type)) {
-      throw new Error('JPEG、PNG、またはGIF形式の画像のみアップロード可能です')
-    }
-
-    // ファイルをArrayBufferに変換
-    const arrayBuffer = await file.arrayBuffer()
-    const buffer = Buffer.from(arrayBuffer)
-
-    // 一意のファイル名を生成（ユーザーID + タイムスタンプ）
-    const fileExt = file.name.split('.').pop()
-    const fileName = `${user.id}-${Date.now()}.${fileExt}`
-
-    console.log('アップロード開始:', {
-      bucket: 'avatar',
-      fileName,
+    console.log('S3アップロード開始:', {
+      fileName: file.name,
       fileType: file.type,
       fileSize: file.size
     })
 
-    // ストレージにアップロード
-    const { data: uploadData, error: uploadError } = await supabase.storage
-      .from('avatar')
-      .upload(fileName, buffer, {
-        contentType: file.type,
-        cacheControl: '3600',
-        upsert: false
-      })
+    // APIルートを使用してS3にアップロード
+    const uploadFormData = new FormData()
+    uploadFormData.append('file', file)
+    uploadFormData.append('folder', 'upload/profiles') // プロフィール画像用フォルダ
 
-    if (uploadError) {
-      console.error('アップロードエラー詳細:', {
-        error: uploadError,
-        message: uploadError.message
-      })
-      
-      if (uploadError.message.includes('permission denied')) {
-        throw new Error('ファイルのアップロード権限がありません。管理者に連絡してください。')
-      }
-      if (uploadError.message.includes('bucket not found')) {
-        throw new Error('ストレージバケットが見つかりません。管理者に連絡してください。')
-      }
-      throw new Error(`ファイルのアップロードに失敗しました: ${uploadError.message}`)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/upload`, {
+      method: 'POST',
+      body: uploadFormData,
+    })
+
+    const data = await response.json()
+
+    if (!response.ok || !data.success) {
+      throw new Error(data.error || 'ファイルのアップロードに失敗しました')
     }
 
-    if (!uploadData) {
-      throw new Error('アップロードに失敗しました。データが正しく保存されませんでした。')
-    }
-
-    console.log('アップロード成功:', uploadData)
-
-    // アップロードしたファイルのURLを取得
-    const { data: { publicUrl } } = supabase.storage
-      .from('avatar')
-      .getPublicUrl(fileName)
-
-    if (!publicUrl) {
-      throw new Error('アップロードしたファイルのURLを取得できませんでした。')
-    }
-
-    console.log('パブリックURL取得:', publicUrl)
+    console.log('S3アップロード成功:', data.fileUrl)
 
     // プロフィールを更新
     const { error: updateError } = await supabase
       .from('profiles')
-      .update({ icon_url: publicUrl })
+      .update({ icon_url: data.fileUrl })
       .eq('id', user.id)
 
     if (updateError) {
@@ -117,7 +74,7 @@ export async function updateIcon(formData: FormData) {
     }
 
     revalidatePath('/private/profile')
-    return { iconUrl: publicUrl }
+    return { iconUrl: data.fileUrl }
   } catch (error) {
     console.error('アイコン更新エラー:', error)
     if (error instanceof Error) {
