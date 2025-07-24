@@ -2,6 +2,8 @@
 
 import { createClient } from '@/utils/supabase/server'
 import { revalidatePath } from 'next/cache'
+import { PutObjectCommand } from '@aws-sdk/client-s3'
+import { s3Client, BUCKET_NAME, testS3Connection } from '@/lib/s3'
 
 export async function updateUsername(formData: FormData) {
   const supabase = await createClient()
@@ -41,31 +43,57 @@ export async function updateIcon(formData: FormData) {
     console.log('S3アップロード開始:', {
       fileName: file.name,
       fileType: file.type,
-      fileSize: file.size
+      fileSize: file.size,
+      bucketName: BUCKET_NAME,
+      region: process.env.AWS_REGION
     })
 
-    // APIルートを使用してS3にアップロード
-    const uploadFormData = new FormData()
-    uploadFormData.append('file', file)
-    uploadFormData.append('folder', 'upload/profiles') // プロフィール画像用フォルダ
-
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/upload`, {
-      method: 'POST',
-      body: uploadFormData,
-    })
-
-    const data = await response.json()
-
-    if (!response.ok || !data.success) {
-      throw new Error(data.error || 'ファイルのアップロードに失敗しました')
+    // S3接続テスト（本番環境でのみ）
+    if (process.env.NODE_ENV === 'production') {
+      const connectionTest = await testS3Connection()
+      if (!connectionTest) {
+        throw new Error('S3への接続に失敗しました。環境変数を確認してください。')
+      }
     }
 
-    console.log('S3アップロード成功:', data.fileUrl)
+    // ファイルサイズチェック（50MB制限）
+    if (file.size > 50 * 1024 * 1024) {
+      throw new Error('ファイルサイズが大きすぎます（50MB以下）')
+    }
+
+    // ファイルタイプチェック
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
+    if (!allowedTypes.includes(file.type)) {
+      throw new Error('サポートされていないファイル形式です')
+    }
+
+    // ファイル名を生成（重複を避けるため）
+    const timestamp = Date.now()
+    const fileExtension = file.name.split('.').pop()
+    const fileName = `upload/profiles/${timestamp}.${fileExtension}`
+
+    // ファイルをバッファに変換
+    const buffer = Buffer.from(await file.arrayBuffer())
+
+    // S3にアップロード
+    const command = new PutObjectCommand({
+      Bucket: BUCKET_NAME,
+      Key: fileName,
+      Body: buffer,
+      ContentType: file.type,
+    })
+
+    await s3Client.send(command)
+
+    // アップロードされたファイルのURLを生成
+    const fileUrl = `https://${BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`
+
+    console.log('S3アップロード成功:', fileUrl)
 
     // プロフィールを更新
     const { error: updateError } = await supabase
       .from('profiles')
-      .update({ icon_url: data.fileUrl })
+      .update({ icon_url: fileUrl })
       .eq('id', user.id)
 
     if (updateError) {
@@ -74,7 +102,7 @@ export async function updateIcon(formData: FormData) {
     }
 
     revalidatePath('/private/profile')
-    return { iconUrl: data.fileUrl }
+    return { iconUrl: fileUrl }
   } catch (error) {
     console.error('アイコン更新エラー:', error)
     if (error instanceof Error) {

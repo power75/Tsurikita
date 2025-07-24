@@ -33,7 +33,14 @@ export function IconForm({ initialIcon }: IconFormProps) {
         }
       } catch (error) {
         console.error('アップロードエラー:', error)
-        setError(error instanceof Error ? error.message : 'アップロードに失敗しました')
+        // エラーメッセージをより詳細に表示
+        let errorMessage = 'アップロードに失敗しました'
+        if (error instanceof Error) {
+          errorMessage = error.message
+        } else if (typeof error === 'string') {
+          errorMessage = error
+        }
+        setError(errorMessage)
       } finally {
         setIsUploading(false)
       }
@@ -60,7 +67,7 @@ export function IconForm({ initialIcon }: IconFormProps) {
         )}
         <input
           type="file"
-          accept="image/jpeg,image/png,image/gif"
+          accept="image/jpeg,image/png,image/gif,image/webp"
           onChange={handleFileChange}
           className="hidden"
           id="icon-upload"
@@ -79,9 +86,12 @@ export function IconForm({ initialIcon }: IconFormProps) {
           >
             {isUploading ? 'アップロード中...' : 'アイコンを変更'}
           </Button>
-          <p className="text-xs text-gray-400 mb-1">※ gif, png, jpeg 形式のみ対応</p>
+          <p className="text-xs text-gray-400 mb-1">※ jpeg, png, gif, webp 形式のみ対応（50MB以下）</p>
           {error && (
-            <p className="text-red-500 text-sm">{error}</p>
+            <div className="text-red-500 text-sm max-w-xs text-center">
+              <p className="font-semibold">エラーが発生しました:</p>
+              <p>{error}</p>
+            </div>
           )}
         </div>
       </div>
